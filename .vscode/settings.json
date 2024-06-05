@@ -4,6 +4,8 @@
         "riscv.h": "c",
         "defs.h": "c",
         "stat.h": "c",
-        "user.h": "c"
+        "user.h": "c",
+        "cstdlib": "c"
     },
+    "C_Cpp.errorSquiggles": "disabled",
 }

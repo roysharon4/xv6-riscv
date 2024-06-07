@@ -103,3 +103,13 @@ sys_memsize(void)
 {
   return myproc()->sz;
 }
+
+uint64
+sys_set_affinity_mask(void)
+{
+  int n;
+  argint(0, &n);
+  myproc()->affinity_mask = n;
+  myproc()->effective_affinity_mask = n;
+  return 0;
+}

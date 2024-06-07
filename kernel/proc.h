@@ -117,4 +117,6 @@ struct proc
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
   char exit_msg[32];           // Process exit message
+  int affinity_mask;           // New field for CPU affinity
+  int effective_affinity_mask; // Effective CPU affinity mask
 };

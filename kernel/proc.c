@@ -393,11 +393,13 @@ void exit(int status, char *exitMsg)
   p->xstate = status;
   p->state = ZOMBIE;
 
+  const char *defaultMsg = "No exit message";
   if (exitMsg == 0x0)
   {
-    exitMsg = "No exit message";
+    exitMsg = (char *)defaultMsg;
   }
-  strncpy(p->exit_msg, exitMsg, 32);
+  strncpy(p->exit_msg, exitMsg, sizeof(p->exit_msg) - 1);
+  p->exit_msg[sizeof(p->exit_msg) - 1] = '\0';
 
   release(&wait_lock);
 
@@ -439,7 +441,7 @@ int wait(uint64 addr, uint64 exitMsg)
             release(&wait_lock);
             return -1;
           }
-          // copy the exit message (exit_msg) of the child to user space addr (exitMsg)
+
           copyout(p->pagetable, exitMsg, pp->exit_msg, sizeof(pp->exit_msg));
 
           freeproc(pp);
